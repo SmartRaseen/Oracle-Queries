@@ -1,0 +1,59 @@
+  -- Composite Type Which is also called as (Object Type)   
+   ------------------------------------------------------
+
+	-- Create Type 
+
+	CREATE TYPE Address as Object
+	(
+		HNO VARCHAR2(12),
+		Street VARCHAR2(20),
+		City VARCHAR2(20)
+	)
+
+	-- Create Table
+ 
+	CREATE TABLE EMPS
+	(
+		EMP_ID  NUMBER(10) NOT NULL,
+		NAME VARCHAR2(20) NOT NULL,
+		LOCATION  ADDRESS NOT NULL
+	);
+
+	ALTER TABLE EMPS
+	ADD PRIMARY KEY(EMP_ID);
+
+	DESCRIBE EMPS;
+
+	
+	--Insert The Data In Proper Way
+
+	INSERT INTO EMPS(EMP_ID,NAME,LOCATION) VALUES(1,'Raseen',ADDRESS('25','Syed Palli Street','Nagore'));
+	INSERT INTO EMPS(EMP_ID,NAME,LOCATION) VALUES(2,'Hameed',ADDRESS('26','MGR Street','Chennai'));
+	COMMIT;
+	
+	SELECT * FROM EMPS;
+
+	
+	--Retrive The Data Properly
+
+	SELECT C.EMP_ID,C.NAME,C.LOCATION.HNO,C.LOCATION.Street,C.LOCATION.City FROM EMPS C;
+
+	
+	--Update The Data
+
+	UPDATE EMPS C SET C.LOCATION.HNO='12/26' WHERE C.EMP_ID =1;
+
+	SELECT C.EMP_ID,C.NAME,C.LOCATION.HNO,C.LOCATION.Street,C.LOCATION.City FROM EMPS C;
+
+	UPDATE EMPS C SET C.LOCATION.HNO='3/12' WHERE C.EMP_ID =2;
+
+	SELECT C.EMP_ID,C.NAME,C.LOCATION.HNO,C.LOCATION.Street,C.LOCATION.City FROM EMPS C;
+
+	INSERT INTO EMPS(EMP_ID,NAME,LOCATION)VALUES(3,'Sulthan',Address('25/5','Thaikkal Street','Nagore'));
+
+	
+	--Delete the Data 
+
+	DELETE EMPS WHERE EMP_ID =3;
+
+	SELECT C.EMP_ID,C.NAME,C.LOCATION.HNO,C.LOCATION.Street,C.LOCATION.City FROM EMPS C;
